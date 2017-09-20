@@ -6,10 +6,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 emotions = ["neutral", "anger", "disgust", "fear", "happy", "surprise"]  # Emotion list
-fishface = cv2.face.EigenFaceRecognizer_create()  # Initialize fisher face classifier
+fishface = cv2.face.FisherFaceRecognizer_create()  # Initialize fisher face classifier
 #EigenFaceRecognizer_create 22% correct
 #FisherFaceRecognizer_create 66% correct
-imSize = 350
+imSize = 400
 data = {}
 mean = 0
 sigma = 50
@@ -45,7 +45,7 @@ def make_sets():
             noise = np.random.normal(mean, sigma, gray.shape)
             img = gray.astype(noise.dtype)
             img += noise
-            training_data.append(gray)  # append image array to training data list
+            training_data.append(img)  # append image array to training data list
             training_labels.append(emotions.index(emotion))
 
         for item in prediction:  # repeat above process for prediction set
@@ -108,7 +108,7 @@ endscore = []
 
 for i in range(0, 6):
     imSize -= 50
-    for j in range(0, 8):
+    for j in range(0, 1):
         correct = run_recognizer()
         print("got", correct, "percent correct!")
         metascore.append(correct)
